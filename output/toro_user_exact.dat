@@ -1,11 +1,11 @@
-# Exact Riemann solution for problem: 6
+# Exact Riemann solution for problem: user
 # Discretization: zonal
 # Domain bounds: [0.00000e+00,1.00000e+00]
 # Iterface position: 5.00000e-01
 # Gamma: 1.40000e+00
 # Left  state [dens,velx,pres]: [1.40000e+00, 0.00000e+00, 1.00000e+00]
 # Right state [dens,velx,pres]: [1.00000e+00, 0.00000e+00, 1.00000e+00]
-# Time: 2.00000e+00
+# Time: 1.00000e+00
                 x              dens              pres              velx              eint              cspd
   5.000000000e-03   1.400000000e+00   1.000000000e+00   0.000000000e+00   1.785714286e+00   1.000000000e+00
   1.500000000e-02   1.400000000e+00   1.000000000e+00   0.000000000e+00   1.785714286e+00   1.000000000e+00

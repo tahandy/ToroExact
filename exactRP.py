@@ -1,3 +1,23 @@
+## Copyright 2017 Timothy A. Handy
+##
+## Permission is hereby granted, free of charge, to any person obtaining
+## a copy of this software and associated documentation files (the "Software"),
+## to deal in the Software without restriction, including without limitation
+## the rights to use, copy, modify, merge, publish, distribute, sublicense,
+## and/or sell copies of the Software, and to permit persons to whom the
+## Software is furnished to do so, subject to the following conditions:
+##
+## The above copyright notice and this permission notice shall be included
+## in all copies or substantial portions of the Software.
+##
+## THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+## OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+## FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+## AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+## LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+## OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+## SOFTWARE.
+
 class initialState:
 	def __init__(self, gamma_ideal, stateL, stateR):
 		# Ideal gas gamma
@@ -40,18 +60,23 @@ class exactRP(initialState):
 		self.success = False
 
 	def solve(self):
+		self.success = True
 
 		# 1) Check pressure positivity
 		if(self.G4*(self.cspdL+self.cspdR)<=(self.velxR-self.velxL)):
-			print('[solve] Initial state will generate a vacuum. Exiting!')
+			print('[exactRP::solve] Initial state will generate a vacuum. Exiting!')
 			self.success = False
 			return False
 
-		#2) Compute the pressure and velocity in the star region
-		if(not self.starpu()):
-			print('[solve] Unable to calculate pressure and velocity in star region!')
+		# 2) Compute the pressure and velocity in the star region
+		success = self.starpu()
+		if(not success):
+			print('[exactRP::solve] Unable to calculate pressure and velocity in star region!')
 			self.success = False
 			return False
+
+		# 3) Exit as a success
+		return True
 
 	def starpu(self):
 		from math import fabs
@@ -102,7 +127,8 @@ class exactRP(initialState):
 		# Outputs
 		pm = -1e99
 
-		# Define user-chosen pressure ratio userQ
+		# Define user-chosen pressure ratio, below which we consider
+		# use of the pressure estimate from the Primitive Variable Riemann Solver
 		quser = 2.e0
 
 		# 1) Obtain initial guess using the primitive variable Riemann solver
@@ -249,14 +275,19 @@ class exactRP(initialState):
 		return dOut, pOut, uOut
 
 	def sample(self,sPts):
+		from math import sqrt
 		dens = []
 		pres = []
 		velx = []
+		eint = []
+		cspd = []
 
 		for S in sPts:
 			d, p, u = self.samplePt(float(S))
 			dens.append(d)
 			pres.append(p)
 			velx.append(u)
+			eint.append((p/d)/(self.gamma-1.e0))
+			cspd.append(sqrt(self.gamma*p/d))
 
-		return dens, pres, velx
+		return dens, pres, velx, eint, cspd
