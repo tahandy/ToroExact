@@ -1,6 +1,6 @@
 # ToroExact
 
-ToroExact is a Python program meant to generate exact solutions to Riemann problems for the Euler equations of hydrodynamics, based on the solver of Toro (1999). By default, the seven verification test problems described by Toro are included. Additionally, user-defined problems may be specified on the command line.
+ToroExact is a Python program meant to generate exact solutions to Riemann problems for the Euler equations of hydrodynamics, based on the solver of Toro [1]. By default, the seven problems used for code verification by Toro are included. Additionally, user-defined problems may be specified on the command line.
 
 ## Installation
 
@@ -77,7 +77,7 @@ optional arguments:
 
 ## Reference
 
-[^toro]: E.F. Toro. *Riemann solvers and numerical methods for fluid dynamics: a practical introduction*. Springer, Berlin, New York, 2009.
+[1]: E.F. Toro. *Riemann solvers and numerical methods for fluid dynamics: a practical introduction*. Springer, Berlin, New York, 2009.
 
 ## License
 MIT License
