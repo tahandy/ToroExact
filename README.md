@@ -53,33 +53,51 @@ optional arguments:
 
 #### If ```-p user``` is used, the following must be defined:
 
-* **-l,--left** defines the left initial state for the user-defined Riemann problem. Format is \[density,velocity,pressure\] (e.g. ```-l "[1.4,0.0,101.5]"```).
+* **-l,--left** defines the left initial state for the user-defined Riemann problem. Format is \[density,velocity,pressure\] (e.g. ```-l "[1.0,0.0,1.0]"```).
 
-* **-r,--right** defines the right initial state for the user-defined Riemann problem. Format is \[density,velocity,pressure\] (e.g. ```-r "[1.0,0.0,2.75]"```).
+* **-r,--right** defines the right initial state for the user-defined Riemann problem. Format is \[density,velocity,pressure\] (e.g. ```-r "[0.125,0.0,0.1]"```).
 
 * **-x,--x0** defines the physical location of the initial state discontinuity.
 
 * **-t,--time** defines the time at which the exact solution is evaluated.
 
+## Examples
 
+### Generate all Toro problems on a 100 zone grid
 
+```./toro_exact.py -n 100 -d zonal -p all```
 
-## Contributing
+### Generate solutions to only problems 1 and 7 using default values
 
-1. Fork it!
-2. Create your feature branch: `git checkout -b my-new-feature`
-3. Commit your changes: `git commit -am 'Add some feature'`
-4. Push to the branch: `git push origin my-new-feature`
-5. Submit a pull request :D
+```./toro_exact.py -p 1 -p 7```
 
-## History
+### Generate a user-defined problem on the domain [0.0,1.0] with a nodal grid of 25 points
 
-TODO: Write history
+```./toro_exact.py -n 25 -d nodal -p user --left "[1.0,0.0,1.0]" --right "[0.125,0.0,0.1]" -b "[0.0,1.0]" -x 0.5 -t 0.2```
 
-## Credits
+## Reference
 
-TODO: Write credits
+[^toro]: E.F. Toro. *Riemann solvers and numerical methods for fluid dynamics: a practical introduction*. Springer, Berlin, New York, 2009.
 
 ## License
+MIT License
 
-TODO: Write license
+Copyright (c) 2017 Timothy Handy
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
